@@ -8,7 +8,8 @@
 <h1>Books index</h1>
 
 <div th:each="book : ${books}">
-    <a th:text="${book.getBookId()+') '+book.getBookName() +' '+book.getAuthor()+' '+book.getYearOfPublishing()}">books</a>
+    <a th:href="@{book/{id}(id=${book.getBookId()})}"
+            th:text="${book.getBookId()+') '+book.getBookName() +' '+book.getAuthor()+' '+book.getYearOfPublishing()}">books</a>
 </div>
 
 <br/>
