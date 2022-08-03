@@ -11,7 +11,8 @@
 <p th:text="${'Autor - '+book.getAuthor()}">Author</p>
 <p th:text="${'Year of publishing - '+book.getYearOfPublishing()}">Year</p>
 
-<a>Edit</a>
+<hr/>
+<a th:href="@{/book/{id}/edit(id=${book.getBookId()})}">Edit</a>
 <form>
   <input type="submit" value="Delete book">
 </form>
