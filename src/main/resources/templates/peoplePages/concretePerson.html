@@ -10,6 +10,20 @@
 <p th:text="'Person name - '+${person.getFullName()}">name</p>
 <p th:text="'Year of birth - '+${person.getYearOfBirth()}">year of birth</p>
 
+<div th:if="${books.isEmpty()}">
+    <hr/>
+    <p>Customer haven't any book!!!</p>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <hr/>
+    <p>Book list: </p>
+    <br/>
+    <table th:each="book : ${books}">
+        <tr th:text="${book.bookName+' '+book.author+' '+book.yearOfPublishing}">Book</tr>
+    </table>
+</div>
+
 <hr/>
 <a th:href="@{/people/{id}/edit(id=${person.getPersonId()})}">Edit</a>
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPersonId()})}">
