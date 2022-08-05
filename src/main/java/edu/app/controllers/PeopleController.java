@@ -24,8 +24,8 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String getConcretePerson(@PathVariable("id") int id, Model model) {
-
         model.addAttribute("person", personDAO.getConcretePerson(id));
+        model.addAttribute("books",personDAO.getBooksByPersonId(id));
         return "peoplePages/concretePerson";
     }
 
