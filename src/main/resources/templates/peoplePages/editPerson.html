@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit person</title>
+    <link th:href="@{errorStyle.css}" rel="stylesheet"/>
 </head>
 <body>
 <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getPersonId()})}" th:object="${person}" >
 
     <label for="name">Enter new full name: </label>
     <input type="text" th:field="*{fullName}" id="name">
+    <div class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">error</div>
     <br/>
 
     <label for="year">Enter new year of birth: </label>
     <input type="text" th:field="*{yearOfBirth}" id="year">
+    <div class="error" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">error</div>
     <br/>
 
     <hr/>

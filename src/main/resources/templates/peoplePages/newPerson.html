@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>New Person</title>
+    <link th:href="@{errorStyle.css}" rel="stylesheet"/>
 </head>
 <body>
 <form th:method="POST" th:object="${person}" th:action="@{/people}">
 
     <label for="name">Enter full name: </label>
     <input type="text" th:field="*{fullName}" id="name">
+    <div class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">error</div>
     <br/>
 
     <label for="year">Enter year of birth: </label>
     <input type="text" th:field="*{yearOfBirth}" id="year">
+    <div class="error" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">error</div>
     <br/>
 
     <hr/>
