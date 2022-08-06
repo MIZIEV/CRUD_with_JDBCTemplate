@@ -4,7 +4,10 @@ import edu.app.dao.PersonDAO;
 import edu.app.models.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
@@ -25,7 +28,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String getConcretePerson(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.getConcretePerson(id));
-        model.addAttribute("books",personDAO.getBooksByPersonId(id));
+        model.addAttribute("books", personDAO.getBooksByPersonId(id));
         return "peoplePages/concretePerson";
     }
 
@@ -36,9 +39,13 @@ public class PeopleController {
     }
 
     @PostMapping
-    public String saveNewPerson(@ModelAttribute("person") Person person) {
-        personDAO.addNewPerson(person);
-        return "redirect:/people";
+    public String saveNewPerson(@ModelAttribute("person") @Valid Person person, BindingResult error) {
+        if (error.hasErrors()) {
+            return "peoplePages/newPerson";
+        } else {
+            personDAO.addNewPerson(person);
+            return "redirect:/people";
+        }
     }
 
     @GetMapping("/{id}/edit")
@@ -48,9 +55,14 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String editPerson(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
-        personDAO.update(id, person);
-        return "redirect:/people";
+    public String editPerson(@PathVariable("id") int id,
+                             @ModelAttribute("person") @Valid Person person, BindingResult error) {
+        if (error.hasErrors()) {
+            return "peoplePages/editPerson";
+        } else {
+            personDAO.update(id, person);
+            return "redirect:/people";
+        }
     }
 
     @DeleteMapping("/{id}")
