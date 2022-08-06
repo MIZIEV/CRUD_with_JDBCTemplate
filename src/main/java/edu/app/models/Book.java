@@ -1,10 +1,21 @@
 package edu.app.models;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Book {
 
     private int bookId;
+    @NotEmpty(message = "Book name mustn't be empty!")
+    @Size(min=5,max = 100,message = "Name size must be between 5 and 100 characters!")
     private String bookName;
+
+    @NotEmpty(message = "Author name mustn't be empty!")
+    @Size(min=2,max = 100,message = "Author name size must be between 2 and 100 characters!")
     private String author;
+
+    @Min(value = 0,message = "Year of publishing must be later than 0! ")
     private int yearOfPublishing;
 
     public Book(){}
